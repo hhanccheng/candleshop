@@ -1,6 +1,7 @@
 package csec.vulnerable.beans;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -49,8 +52,13 @@ public class Product {
 	Collection collection;
 	@OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private List<ProductReview> reviews;
-	@OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	private List<Tag> tags;
+	@ManyToMany
+    @JoinTable(
+            name = "product_tag",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<Tag> tags;
 	public Product(int id) {
 		super();
 		this.id = id;
@@ -156,17 +164,18 @@ public class Product {
 				+ ", image=" + image + ", description=" + description + ", collection=" + collection + ", reviews="
 				+ reviews + ", tags=" + tags + "]";
 	}
-	public List<Tag> getTags() {
-		return tags;
-	}
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
-	}
+	
 	public Collection getCollection() {
 		return collection;
 	}
 	public void setCollection(Collection collection) {
 		this.collection = collection;
+	}
+	public Set<Tag> getTags() {
+		return tags;
+	}
+	public void setTags(Set<Tag> tags) {
+		this.tags = tags;
 	}
 	
 	

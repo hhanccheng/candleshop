@@ -1,15 +1,13 @@
 package csec.vulnerable.beans;
 
-import java.util.List;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -26,13 +24,18 @@ public class Tag {
 	@Column
 	@NotEmpty
 	private String name;
-    @OneToMany(mappedBy = "tag",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	private List<Product> products;
+	@ManyToMany(mappedBy = "tags")
+    private Set<Product> products;
 	
-	public Tag(int id, String name, List<Product> products) {
+	
+	public Tag(int id, @NotEmpty String name, Set<Product> products) {
 		this.id = id;
 		this.name = name;
 		this.products = products;
+	}
+	public Tag(int id, @NotEmpty String name) {
+		this.id = id;
+		this.name = name;
 	}
 	public int getId() {
 		return id;
@@ -46,20 +49,19 @@ public class Tag {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public List<Product> getProducts() {
+	
+	public Set<Product> getProducts() {
 		return products;
 	}
-	public void setProducts(List<Product> products) {
+	public void setProducts(Set<Product> products) {
 		this.products = products;
 	}
+
+	
 	@Override
 	public String toString() {
 		return "Tag [id=" + id + ", name=" + name + ", products=" + products + "]";
 	}
-	
-	
-	
-
-	
     
+
 }

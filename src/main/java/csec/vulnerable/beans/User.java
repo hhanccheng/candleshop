@@ -44,9 +44,11 @@ private static final long serialVersionUID = 1L;
 	private List<UserProfile> profiles = new ArrayList<UserProfile>();
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private UserInfo userInfo;
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+
+	@OneToMany(mappedBy = "user")
 	private List<ProductReview> myreviews;
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+
+	@OneToMany(mappedBy = "user")
 	private List<Payment> mypayments;
 			
 	@Override

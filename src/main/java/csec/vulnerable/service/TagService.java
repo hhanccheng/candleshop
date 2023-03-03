@@ -42,7 +42,6 @@ public class TagService {
 	public Response changeTag(Tag tag) {
         Tag col = tagDao.findById(tag.getId()).get();
         col.setName(tag.getName());
-        col.setProducts(tag.getProducts());
         tagDao.save(col);
         return new Response(true);
 		

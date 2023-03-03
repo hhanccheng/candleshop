@@ -44,7 +44,6 @@ public class UserProfile implements GrantedAuthority{
 
 	public UserProfile() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -54,7 +53,6 @@ public class UserProfile implements GrantedAuthority{
 
 	@Override
 	public String getAuthority() {
-		// TODO Auto-generated method stub
 		return type;
 	}	
 	

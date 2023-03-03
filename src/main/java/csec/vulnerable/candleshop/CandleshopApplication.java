@@ -18,7 +18,6 @@ public class CandleshopApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CandleshopApplication.class, args);
 	}
-
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
