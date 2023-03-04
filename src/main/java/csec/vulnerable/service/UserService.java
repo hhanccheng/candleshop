@@ -1,6 +1,7 @@
 package csec.vulnerable.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
@@ -12,8 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import csec.vulnerable.beans.User;
+import csec.vulnerable.beans.UserInfo;
 import csec.vulnerable.beans.UserProfile;
 import csec.vulnerable.dao.UserDao;
+import csec.vulnerable.dao.UserInfoDao;
 import csec.vulnerable.http.Response;
 
 
@@ -22,6 +25,9 @@ import csec.vulnerable.http.Response;
 public class UserService {
 	@Autowired
 	UserDao userDao;
+
+	@Autowired
+	UserInfoDao userInfoDao ;
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -37,6 +43,14 @@ public class UserService {
 		user.setProfiles(profiles);
 		System.out.println(user);
 		userDao.save(user);
+		UserInfo userInfo = new UserInfo();
+		userInfo.setUser(user);
+		userInfo.setId(user);
+		Calendar calendar = Calendar.getInstance();
+        java.util.Date now = calendar.getTime();
+        java.sql.Date currentDate = new java.sql.Date(now.getTime());
+		userInfo.setCreate_date(currentDate);
+		userInfoDao.save(userInfo);
 		return new Response(true);
 	}
 	public Response registerAdm(User user) {
