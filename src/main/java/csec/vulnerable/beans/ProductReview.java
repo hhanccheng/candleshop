@@ -50,6 +50,10 @@ public class ProductReview {
         this.user = user;
     }
     
+    
+    public ProductReview() {
+    }
+
     public ProductReview(Product product, User user, int grade, String comment, Date review_date) {
         this.product = product;
         this.user = user;
