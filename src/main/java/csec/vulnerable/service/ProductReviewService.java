@@ -1,5 +1,6 @@
 package csec.vulnerable.service;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,10 @@ public class ProductReviewService {
     //post
 	public Response addProductReview(ProductReview productReview,org.springframework.security.core.Authentication authentication) {
         productReview.setUser(userDao.findByUsername(authentication.getName()));
+		Calendar calendar = Calendar.getInstance();
+        java.util.Date now = calendar.getTime();
+        java.sql.Date currentDate = new java.sql.Date(now.getTime());
+		productReview.setReview_date(currentDate);
 		productReviewDao.save(productReview);
 		return new Response(true);
 	}
@@ -45,6 +50,10 @@ public class ProductReviewService {
         if(pr.getUser().equals(userDao.findByUsername(authentication.getName()) )){
             pr.setComment(productReview.getComment());
             pr.setGrade(productReview.getGrade());
+			Calendar calendar = Calendar.getInstance();
+        	java.util.Date now = calendar.getTime();
+        	java.sql.Date currentDate = new java.sql.Date(now.getTime());
+			pr.setReview_date(currentDate);
             productReviewDao.save(pr);
             return new Response(true);
         }else{

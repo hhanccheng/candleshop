@@ -1,5 +1,6 @@
 package csec.vulnerable.beans;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -11,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -47,18 +47,14 @@ public class Product {
 	private String image;
 	@Column
 	private String description;
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "collection_id")
-	Collection collection;
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "collection_id")
+    private Collection collection;
 	@OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private List<ProductReview> reviews;
-	@ManyToMany
-    @JoinTable(
-            name = "product_tag",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id")
-    )
-    private Set<Tag> tags;
+	@ManyToMany(mappedBy = "products")
+    private Set<Tag> tags = new HashSet<>();
+
 	public Product(int id) {
 		super();
 		this.id = id;
@@ -77,8 +73,6 @@ public class Product {
 		this.image = image;
 		this.description = description;
 	}
-	
-
 	public Product(@NotEmpty String name, @NotEmpty String brand, @NotNull @Positive int price,
 			@NotNull @PositiveOrZero int stock, String image,String description) {
 		super();
@@ -91,7 +85,19 @@ public class Product {
 	}
 
 
-
+	public Product(@NotEmpty String name, @NotEmpty String brand, @NotNull @Positive int price,
+			@NotNull @PositiveOrZero int stock, String image, String description, Collection collection,
+			List<ProductReview> reviews, Set<Tag> tags) {
+		this.name = name;
+		this.brand = brand;
+		this.price = price;
+		this.stock = stock;
+		this.image = image;
+		this.description = description;
+		this.collection = collection;
+		this.reviews = reviews;
+		this.tags = tags;
+	}
 	/**
 	 * Get and Set 	
 	 */

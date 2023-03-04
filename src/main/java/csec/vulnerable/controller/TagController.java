@@ -33,18 +33,18 @@ public class TagController {
 		return tagService.getTags();
 	}
 	
-	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@PostMapping
 	public Response addTag(@RequestBody Tag tag){
 		return tagService.addTag(tag);
 	}
 	
-	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@PutMapping
 	public Response changeTag(@RequestBody Tag tag) {
 		return tagService.changeTag(tag);
 	}
-	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@DeleteMapping("/{id}")
 	public Response deleteTag(@PathVariable int id) {
 		return tagService.deleteTag(id);

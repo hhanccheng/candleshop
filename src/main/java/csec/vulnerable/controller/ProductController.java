@@ -33,18 +33,18 @@ public class ProductController {
 		return productService.getProducts();
 	}
 	
-	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@PostMapping
 	public Response addProduct(@RequestBody Product product){
 		return productService.addProduct(product);
 	}
 	
-	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@PutMapping
 	public Response changeProduct(@RequestBody Product product) {
 		return productService.changeProduct(product);
 	}
-	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@DeleteMapping("/{id}")
 	public Response deleteProduct(@PathVariable int id) {
 		return productService.deleteProduct(id);

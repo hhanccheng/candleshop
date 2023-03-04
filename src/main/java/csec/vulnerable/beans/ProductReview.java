@@ -28,7 +28,7 @@ public class ProductReview {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "product_id")
 	@JsonIgnoreProperties("reviews")
-	Product product;
+	private Product product;
     @ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	@JsonIgnoreProperties("myreviews")
@@ -48,6 +48,20 @@ public class ProductReview {
 
     public void setUser(User user) {
         this.user = user;
+    }
+    
+    public ProductReview(Product product, User user, int grade, String comment, Date review_date) {
+        this.product = product;
+        this.user = user;
+        this.grade = grade;
+        this.comment = comment;
+        this.review_date = review_date;
+    }
+    
+    public ProductReview(Product product, int grade, String comment) {
+        this.product = product;
+        this.grade = grade;
+        this.comment = comment;
     }
 
     public ProductReview(int grade, String comment) {

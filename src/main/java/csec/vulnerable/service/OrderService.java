@@ -1,5 +1,6 @@
 package csec.vulnerable.service;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
@@ -82,8 +83,12 @@ public class OrderService {
 				}
 			});
 			order.setUser(userDao.findByUsername(authentication.getName()));
-			orderDao.save(order);
 			order.setPurchases(purchaseShoppingCarts);
+			Calendar calendar = Calendar.getInstance();
+        	java.util.Date now = calendar.getTime();
+        	java.sql.Date currentDate = new java.sql.Date(now.getTime());
+			order.setPurchase_date(currentDate);
+			orderDao.save(order);
 			return new Response(true);
 		}catch (Exception e) {
 			return new Response(false,e.getMessage());

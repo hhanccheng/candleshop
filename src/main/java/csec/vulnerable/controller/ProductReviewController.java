@@ -24,13 +24,11 @@ public class ProductReviewController {
 	@Autowired
 	ProductReviewService productReviewService;
 	
-	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_USER')")
 	@GetMapping("/{id}")
-	public ProductReview getProduct(@PathVariable int id) {
+	public ProductReview getProductReview(@PathVariable int id) {
 		return productReviewService.getProductReview(id);
 	}
 	
-	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_USER')")
 	@GetMapping
 	public List<ProductReview> getProductReviews() {
 		return productReviewService.getProductReviews();

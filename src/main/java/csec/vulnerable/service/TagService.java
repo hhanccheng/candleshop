@@ -33,21 +33,18 @@ public class TagService {
 		return tagDao.findAll();
 	}
 
-    //post
 	public Response addTag(Tag tag) {
 		tagDao.save(tag);
 		return new Response(true);
 	}
-	//put
+
 	public Response changeTag(Tag tag) {
         Tag col = tagDao.findById(tag.getId()).get();
         col.setName(tag.getName());
         tagDao.save(col);
         return new Response(true);
-		
 	}
 	
-	//delete
 	public Response deleteTag(int id) {
 		if(tagDao.findById(id)!=null) {
             tagDao.deleteById(id);

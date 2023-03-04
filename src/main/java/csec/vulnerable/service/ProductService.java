@@ -36,12 +36,14 @@ public class ProductService {
 	public Response changeProduct(Product product) {
 		Product p = productDao.findById(product.getId()).get();
 		p.setBrand(product.getBrand());
-		p.setImage(p.getImage());
+		p.setImage(product.getImage());
 		p.setPrice(product.getPrice());
 		p.setName(product.getName());
 		p.setStock(product.getStock());
 		p.setDescription(product.getDescription());
 		p.setReviews(product.getReviews());
+		p.setCollection(product.getCollection());
+		p.setTags(product.getTags());
 		productDao.save(p);
 		return new Response(true);
 	}

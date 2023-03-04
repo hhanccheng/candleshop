@@ -102,7 +102,8 @@ public class PaymentService {
             if(isValid(payment.getCard_number())){
                 py.setCard_number(payment.getCard_number());
                 py.setOwner_name(payment.getOwner_name());
-                py.setExpiration_date(payment.getExpiration_date());
+                py.setExpiryMonth(payment.getExpiryMonth());
+                py.setExpiryYear(payment.getExpiryYear());
                 py.setSec_code(payment.getSec_code());
                 paymentDao.save(py);
                 return new Response(true);

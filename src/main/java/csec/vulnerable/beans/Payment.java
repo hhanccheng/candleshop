@@ -1,7 +1,5 @@
 package csec.vulnerable.beans;
 
-import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
@@ -33,11 +30,48 @@ public class Payment {
     private long card_number;
     @Column
     private String owner_name;
-    @Column
-	@JsonFormat(pattern = "MM-yyyy")
-	private Date expiration_date;
+    @Column(name="expiry_month", nullable=false)
+    private int expiryMonth;
+    @Column(name="expiry_year", nullable=false)
+    private int expiryYear;
     @Column
     private int sec_code;
+
+    
+    public Payment() {
+    }
+
+    public Payment(long card_number, String owner_name, String expiration_date, int sec_code) {
+        this.card_number = card_number;
+        this.owner_name = owner_name;
+        this.sec_code = sec_code;
+    }
+    
+    public Payment(User user, long card_number, String owner_name, int expiryMonth, int expiryYear, int sec_code) {
+        this.user = user;
+        this.card_number = card_number;
+        this.owner_name = owner_name;
+        this.expiryMonth = expiryMonth;
+        this.expiryYear = expiryYear;
+        this.sec_code = sec_code;
+    }
+
+    public int getExpiryMonth() {
+        return expiryMonth;
+    }
+
+    public void setExpiryMonth(int expiryMonth) {
+        this.expiryMonth = expiryMonth;
+    }
+
+    public int getExpiryYear() {
+        return expiryYear;
+    }
+
+    public void setExpiryYear(int expiryYear) {
+        this.expiryYear = expiryYear;
+    }
+
     public int getId() {
         return id;
     }
@@ -61,12 +95,6 @@ public class Payment {
     }
     public void setOwner_name(String owner_name) {
         this.owner_name = owner_name;
-    }
-    public Date getExpiration_date() {
-        return expiration_date;
-    }
-    public void setExpiration_date(Date expiration_date) {
-        this.expiration_date = expiration_date;
     }
     public int getSec_code() {
         return sec_code;
